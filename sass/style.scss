@@ -34,6 +34,15 @@ h1.company-name {
   width: 100%;
 }
 
+.section-title {
+  position: relative;
+  margin: 0 auto;
+  font-size: 3.2rem;
+  color: $gold;
+  font-weight: 200;
+  width: fit-content;
+}
+
 //header
 .header {
   display: grid;
@@ -141,41 +150,127 @@ h1.company-name {
   &__link {
     position: relative;
     display: inline-block;
-    margin: .5em;
-    padding: .5em;
+    margin: 0.5em;
+    padding: 0.5em;
     font-size: 2.3rem;
     color: $darker;
     text-decoration: none;
     text-transform: uppercase;
-    transition: color .3s;
+    transition: color 0.3s;
 
     &:hover {
       color: $gold;
-    }
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: '';
-      width: 100%;
-      height: 100%;
-      border: 1px solid $gold;
-      opacity: 0;
-
-      &:hover::before {
-        animation: pulse 1s;
-      }
     }
   }
 }
 
 
+// CARDS
+.cards {
+  background-color: $darker;
+  overflow: hidden;
+
+  &__box {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 2em;
+    padding: 6em 2em;
+  }
+
+  &__card {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    padding: 3em;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: $dark;
+    transition: background-color .3s, border .3s;
+
+    &:hover {
+      background-color: $darker;
+      border: 1px solid $gold;
+      z-index: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid $gold;
+      border-radius: 8px;
+      opacity: 0;
+    }
+
+    &:hover::before {
+      animation: pulse 1s;
+    }
+
+    img {
+      margin-bottom: 1em;
+      width: 60px;
+    }
+
+    h3 {
+      margin-bottom: 0.6em;
+      text-transform: uppercase;
+    }
+
+    &--one, &--two, &--three {
+      grid-column: 1/-1;
+    }
+
+    &--one {
+      grid-row: 1/2;
+      
+    }
+    &--two {
+      grid-row: 2/3;
+    }
+
+    &--three {
+      grid-row: 3/4;
+    }
+  }
+}
+
+
+
 //MEDIA
 
-@media (min-width: 992px) {
-  .header {
+@media (min-width: 768px) {
+   .cards {
+    &__box {
+      padding: 10em 2em;
+    }
+    &__card {
+      &--one, &--two, &--three {
+        grid-row: 1/2;
+      }
+  
+      &--one {
+        grid-column: 1/4;
+        
+      }
+      &--two {
+        grid-column: 4/7;
+      }
+  
+      &--three {
+        grid-column: 7/10;
+      }
+    }
+   }
+}
 
+@media (min-width: 992px) {
+  h1.company-name {
+    font-size: 6rem;
+  }
+
+  .header {
     grid-template-rows: auto repeat(2, 1fr);
 
     &__text {
@@ -185,18 +280,93 @@ h1.company-name {
       p {
         font-size: 1.8rem;
       }
+    }
 
-      &__img {
-        grid-row: 1/4;
-        grid-column: 2/3;
-      }
+    &__img {
+      grid-row: 1/4;
+      grid-column: 2/3;
+    }
 
-      &__arrow {
-        display: block;
+    &__arrow {
+      display: block;
+      position: absolute;
+      bottom: 3em;
+      left: 48%;
+      padding: 2em;
+      transform: translateX(-50%);
+      border: 1px solid $white;
+      border-radius: 50%;
+
+      &::before {
+        content: "";
         position: absolute;
-        bottom: 3em;
-        left: 48%;
-        padding: 2em;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $white;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+    }
+
+    &__arrow-icon {
+      width: 50px;
+    }
+
+    &__bg-icon-one {
+      left: 6em;
+      bottom: 8em;
+      width: 10%;
+    }
+    &__bg-icon-two {
+      display: block;
+      top: 10em;
+      left: 35%;
+      width: 5%;
+      animation: rotate-left 55s infinite linear;
+    }
+  }
+
+  .nav {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    padding: 1em;
+
+    &-desktop {
+      display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &__link {
+      color: $white;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        border: 1px solid $gold;
+        opacity: 0;
+      }
+      &:hover::before {
+        animation: pulse 1s;
+      }
+    }
+  }
+
+  .hamburger {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header {
+    &__text {
+      p {
+        font-size: 2.2rem;
       }
     }
   }
